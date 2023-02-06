@@ -1,5 +1,3 @@
-function main() {
-  console.log('start')
-}
-
-main();
+import App from "./src/App.js";
+const app = new App();
+document.body.appendChild(app.$wrapper);
