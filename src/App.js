@@ -1,6 +1,6 @@
 import Header from "@/components/Header/index.js";
+import MainSection from "@/components/MainSection.js";
 import Component from "@/core/component.js";
-import MainSection from "@/pages/MainSection.js";
 import getPath from "@/utils/getPath";
 import "public/style.css";
 import { ROUTES, SERVER_URL } from "./constants";
@@ -18,20 +18,8 @@ class App extends Component {
     this.$header = new Header();
     this.$mainSection = new MainSection();
     this.children = [this.$header, this.$mainSection];
-  }
 
-  addEvent() {
-    const tab = getPath();
-    if (tab === ROUTES.COLLECT) return;
-
-    fetch(SERVER_URL, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        this.$mainSection.setState({ contents: data });
-      });
-
+    /* initChildren에서 해야할 역할이 맞는지 고민해보기 */
     const renderChildren = () => {
       this.$header.render();
       this.$mainSection.render();
@@ -47,6 +35,19 @@ class App extends Component {
       .addRoute(ROUTES.SPORTS, renderChildren)
       .addRoute(ROUTES.BIZ, renderChildren)
       .addRoute(ROUTES.COLLECT, renderChildren);
+  }
+
+  addEvent() {
+    const tab = getPath();
+    if (tab === ROUTES.COLLECT) return;
+
+    fetch(SERVER_URL, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        this.$mainSection.setState({ contents: data });
+      });
   }
 }
 
