@@ -26,10 +26,17 @@ class Component {
 
   componentDidMount() {
     this.appendChild();
+    this.renderChildren();
     this.addEvent();
   }
 
-  appendChild() {}
+  appendChild() {
+    this.children.forEach((child) => this.$wrapper.appendChild(child.$wrapper));
+  }
+
+  renderChildren() {
+    this.children.forEach((child) => child.render());
+  }
 
   addEvent() {}
 
