@@ -10,7 +10,7 @@ class CollectContainer extends Component {
 
   initChildren() {
     this.$title = new Title({ type: "bookmark" });
-    this.$interestCardList = new InterestCardList();
+    this.$interestCardList = new InterestCardList({ selectedIds: [] });
     this.children = [this.$title, this.$interestCardList];
   }
 }

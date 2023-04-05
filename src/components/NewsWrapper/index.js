@@ -1,4 +1,7 @@
 import Component from "@/core/component";
+import { observe } from "@/core/observable";
+import store from "@/core/store";
+import getPath from "@/utils/getPath";
 import NewsCard from "./NewsCard";
 
 class NewsWrapper extends Component {
@@ -7,19 +10,22 @@ class NewsWrapper extends Component {
     this.$wrapper.className = "wrapper_block";
   }
 
-  /* TODO: 전역 store에서 가져오기 */
+  initObservers() {
+    observe(() => {
+      console.log("옵저버 실행");
+      this.render();
+    });
+  }
+
   render() {
-    this.state?.contents?.[path]
+    this.children = [];
+    const path = getPath().replace("/", "");
+    const { news } = store.getState();
+
+    news?.[path]
       ?.sort(() => Math.random() - 0.5)
       .map((content, index) => {
-        const {
-          category,
-          title,
-          origin,
-          link,
-          largeThumbnail,
-          smallThumbnail,
-        } = content;
+        const { category, title, origin, link, largeThumbnail, smallThumbnail } = content;
         const remainDiv18 = index % 18;
         const isLarge = remainDiv18 === 10 || remainDiv18 === 17;
 

@@ -3,9 +3,11 @@ class Component {
     this.state = props;
     this.$wrapper = null;
     this.children = [];
+
     this.createParent();
     this.initChildren();
     this.render();
+    this.initObservers();
   }
 
   createParent() {
@@ -13,6 +15,8 @@ class Component {
   }
 
   initChildren() {}
+
+  initObservers() {}
 
   template() {
     return "";

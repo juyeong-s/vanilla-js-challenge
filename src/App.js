@@ -4,7 +4,9 @@ import Component from "@/core/component.js";
 import getPath from "@/utils/getPath";
 import "public/style.css";
 import { ROUTES, SERVER_URL } from "./constants";
+import { ACTION } from "./constants/action";
 import createRouter from "./core/router";
+import { dispatch } from "./core/store";
 
 export const router = createRouter();
 
@@ -19,7 +21,6 @@ class App extends Component {
     this.$mainSection = new MainSection();
     this.children = [this.$header, this.$mainSection];
 
-    /* initChildren에서 해야할 역할이 맞는지 고민해보기 */
     const renderChildren = () => {
       this.$header.render();
       this.$mainSection.render();
@@ -46,7 +47,7 @@ class App extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        this.$mainSection.setState({ contents: data });
+        dispatch({ type: ACTION.NEWS, news: data });
       });
   }
 }
