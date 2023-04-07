@@ -1,22 +1,23 @@
 class Component {
   constructor(props = {}) {
-    this.state = props;
+    this.props = props;
+    this.state = {};
     this.$wrapper = null;
     this.children = [];
 
-    this.createParent();
+    this.createWrapper();
     this.initChildren();
-    this.initObservers();
+    this.initObserver();
     this.render();
   }
 
-  createParent() {
-    this.$wrapper = document.createElement("div");
+  createWrapper(element) {
+    this.$wrapper = document.createElement(element || "div");
   }
 
   initChildren() {}
 
-  initObservers() {}
+  initObserver() {}
 
   template() {
     return "";
@@ -29,17 +30,15 @@ class Component {
   }
 
   componentDidMount() {
-    this.appendChild();
-    this.renderChildren();
+    this.appendChildren();
     this.addEvent();
   }
 
-  appendChild() {
-    this.children.forEach((child) => this.$wrapper.appendChild(child.$wrapper));
-  }
-
-  renderChildren() {
-    this.children.forEach((child) => child.render());
+  appendChildren() {
+    this.children.forEach((child) => {
+      this.$wrapper.appendChild(child.$wrapper);
+      child.render();
+    });
   }
 
   addEvent() {}
