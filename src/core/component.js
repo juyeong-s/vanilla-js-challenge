@@ -6,8 +6,8 @@ class Component {
 
     this.createParent();
     this.initChildren();
-    this.render();
     this.initObservers();
+    this.render();
   }
 
   createParent() {
